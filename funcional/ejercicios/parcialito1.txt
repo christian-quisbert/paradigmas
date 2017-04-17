@@ -1,0 +1,35 @@
+﻿Parcialito 1 - Paradigmas de Programación
+
+
+Nombre:
+________________
+
+
+Conceptos a evaluar
+Modelado de información, composición, aplicación parcial
+Enunciado
+Modelar una persona con nombre, edad, sexo, si saldría o no con otra persona y quiénes le gustan.
+
+
+Una persona puede definir el siguiente criterio para salir con una persona (es siempre uno solo):
+* algunos salen con cualquiera, no importa quién
+* otros salen con personas de otro sexo que tienen una diferencia de ∓ 5 años 
+* otros salen con los que le gustan
+
+
+Requerimientos
+* saber si una persona se llama “Laura”
+* saber si una persona es misógina: no le gusta nadie
+* saber si una persona es mujer
+* saber si una persona saldría con otra
+
+
+Paso 2
+La persona Incorpora cuánto tiempo puede amar a otra persona.
+* Algunos aman hasta que la otra persona cumpla 40 (ó 0 si la otra persona tiene más de 40)
+* Otros aman hasta que les agarra el viejazo: 50, no importa la otra persona
+* Otros aman toda la vida, que se estima en 100 años
+* Y otros aman 5 * la cantidad de letras que tenga el nombre de la otra persona
+
+
+Saber si dos personas son compatibles, esto se da cuando ambos pueden amar más de 20 años a su pareja.
