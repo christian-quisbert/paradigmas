@@ -102,5 +102,21 @@ seRescata persona horas
 -- C/u de las funciones donde toma una bebida, se modifico para agregar la bebida.
 
 --- Punto 1-c ---
+tomarTragos :: Cliente -> [Bebida] -> Cliente
+tomarTragos persona tragos = foldl tomaTrago persona tragos
 
+tomaTrago persona trago = trago persona
+
+--- Punto 1-d ---
+dameOtro persona = (last (bebidas persona)) persona
+
+--- PUNTO 2-a ---
+cualesPuedeTomar persona = map (resistenciaMayorACero persona) -- Aplicacion Parcial (una lista "tragos") --
+
+resistenciaMayorACero persona trago = (resistencia.tomaTrago persona) trago > 0
+
+--- PUNTO 2-b ---
+cuantasPuedeTomar persona = (length.filter (== True).cualesPuedeTomar persona) -- Aplicacion Parcial (una lista "tragos") --
+
+--- PUNTO 3 ---
 
