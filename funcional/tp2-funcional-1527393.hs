@@ -50,7 +50,7 @@ tieneMasDeUnAmigo = ((>1).length.amigos)	-- Aplicacion parcial --
 
 --- PUNTO 4 ---
 reconocerAmigo uno otro
-	| (esMismaPersona uno otro || amigoExistente uno otro) = uno
+	| (esMismaPersona uno otro || amigoExistente uno otro) = error ("Error, es la misma persona o un amigo existente")
 	| not (amigoExistente uno otro) = agregarAmigo uno otro
 
 esMismaPersona pers1 pers2 = nombre pers1 == nombre pers2
