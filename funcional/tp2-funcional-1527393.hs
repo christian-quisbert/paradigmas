@@ -1,6 +1,7 @@
 module TP where
 
 import Text.Show.Functions
+import Data.List
 
 --- PUNTO 2.2 ---
 data Cliente = Persona {
@@ -12,6 +13,7 @@ data Cliente = Persona {
 
 
 type Bebida = Cliente -> Cliente
+type Accion = Cliente -> Cliente
 
 --- PUNTO 2.3 ---
 rodri = Persona {
@@ -49,34 +51,40 @@ estaFresco = ((>50).resistencia)		-- Aplicacion Parcial --
 tieneMasDeUnAmigo = ((>1).length.amigos)	-- Aplicacion parcial --
 
 --- PUNTO 4 ---
-reconocerAmigo uno otro
-	| (esMismaPersona uno otro || amigoExistente uno otro) = error ("Error, es la misma persona o un amigo existente")
-	| not (amigoExistente uno otro) = agregarAmigo uno otro
+reconocerAmigo :: Cliente -> Cliente -> Cliente 
+reconocerAmigo friendToAdd uno
+	| (esMismaPersona uno friendToAdd || amigoExistente uno friendToAdd) = error ("Error, es la misma persona o un amigo existente")
+	| not (amigoExistente uno friendToAdd) = agregarAmigo friendToAdd uno
 
 esMismaPersona pers1 pers2 = nombre pers1 == nombre pers2
 amigoExistente pers1 amigoABuscar = (elem (nombre amigoABuscar).map nombre.amigos) pers1
 
-agregarAmigo (Persona name resistencia listaAmigos bebidas) amigoAAgregar = Persona name resistencia (amigoAAgregar : listaAmigos) bebidas
+agregarAmigo friendToAdd (Persona name res amigos bebidas) = Persona name res (friendToAdd : amigos) bebidas
 
 --- PUNTO 5 ---
 
 ----- Grog -----
-tomaGrog (Persona name resistencia amigos bebidas) =  Persona name 0 amigos (bebidas ++ [tomaGrog])
+tomaGrog :: Bebida
+tomaGrog (Persona name res amigos bebidas) =  Persona name 0 amigos (bebidas ++ [tomaGrog])
 
 ------ Jarra loca -----
-tomaJarraLoca (Persona name resist friends bebidas) =  (Persona name (resist - 10) (map (disminuirResistencia 10) friends) (bebidas ++ [tomaJarraLoca]))
+tomaJarraLoca :: Bebida
+tomaJarraLoca (Persona name res friends bebidas) =  (Persona name (res - 10) (map (disminuirResistencia 10) friends) (bebidas ++ [tomaJarraLoca]))
 
 ----- Toma Klusener -----
+tomaKlusener :: String -> Bebida
 tomaKlusener gusto persona = (agregarKlusener gusto.disminuirResistencia (length gusto)) persona
 
 agregarKlusener gusto (Persona name res amigos bebidas) = Persona name res amigos (bebidas ++ [tomaKlusener gusto])
 
 ----- Toma Tintico ------
+tomaTintico :: Bebida
 tomaTintico persona = (agregarTintico.aumentarResistencia ((length.amigos) persona * 5)) persona
 
 agregarTintico (Persona name res amigos bebidas) =  (Persona name res amigos (bebidas ++ [tomaTintico]))
 
 ----- Toma Soda -----
+tomaSoda :: Int -> Bebida
 tomaSoda fuerza (Persona name resistencia amigos bebidas) = Persona (modificoNombre name fuerza) resistencia amigos (bebidas ++ [tomaSoda fuerza])
 
 modificoNombre name cantidadErres = "e" ++ replicate cantidadErres 'r' ++ "p" ++ name
@@ -85,8 +93,8 @@ disminuirResistencia cant (Persona name resistencia amigos bebidas) = Persona na
 aumentarResistencia cant (Persona name resistencia amigos bebidas) = Persona name (resistencia + cant) amigos bebidas
 
 --- PUNTO 6 ---
--- seRescata :: Cliente -> Int -> Cliente
-seRescata persona horas
+-- seRescata :: Int -> Cliente -> Cliente
+seRescata horas persona
 	| horas > 3 = aumentarResistencia 200 persona
 	| horas > 0 && horas <= 3 = aumentarResistencia 100 persona
 
@@ -119,4 +127,76 @@ resistenciaMayorACero persona trago = (resistencia.tomaTrago persona) trago > 0
 cuantasPuedeTomar persona = (length.filter (== True).cualesPuedeTomar persona) -- Aplicacion Parcial (una lista "tragos") --
 
 --- PUNTO 3 ---
+--type RobertoCarlos = Cliente -> Cliente
 
+data Itinerario = Itinerario {
+	nombreItinerario :: String,
+	duracion :: Float,
+	acciones :: [Accion]
+} deriving (Show)
+--- PUNTO 3-a ---
+
+-- Defino algunos Itinerarios --
+mezclaExplosiva = Itinerario {
+	nombreItinerario = "mezclaExplosiva",
+	duracion = 2.5,
+	acciones = [tomaGrog, tomaGrog, tomaKlusener "Huevo", tomaKlusener "Frutilla"]
+}
+itinerarioBasico = Itinerario {
+	nombreItinerario = "itinerarioBasico",
+	duracion = 5,
+	acciones = [tomaJarraLoca, tomaKlusener "chocolate", seRescata 2, tomaKlusener "huevo"]
+}
+salidaDeAmigos = Itinerario {
+	nombreItinerario = "salidaDeAmigos",
+	duracion = 1,
+	acciones = [tomaSoda 1, tomaTintico, reconocerAmigo robertoCarlos, tomaJarraLoca]
+}
+
+-- Modelo a Roberto Carlos --
+robertoCarlos = Persona {
+	nombre = "Roberto Carlos",
+	resistencia = 165,
+	amigos = [],
+	bebidas = []
+}
+
+--- PUNTO 3-b ---
+realizarItinerario persona itinerario = tomarTragos persona (acciones itinerario) 
+
+-- rodri y marcos aplican la funcion --
+-- *TP> realizarItinerario rodri salidaDeAmigos
+-- *TP> realizarItinerario marcos mezclaExplosiva
+
+--- PUNTO 4 ---
+intensidadDeItinerario itinerario = (genericLength (acciones itinerario)) / (duracion itinerario)
+
+-- Modelo una lista de itinerarios --
+conjuntoItinerarios = [salidaDeAmigos, mezclaExplosiva, itinerarioBasico]
+
+-- Funcion: Me devuelve el itinerario MAS intenso --
+itinerarioMasIntenso (itinerario:itinerarios) = foldl (\i1 i2 -> if(intensidadDeItinerario i1 > intensidadDeItinerario i2) then i1 else i2) itinerario itinerarios
+
+--- PUNTO 5 ---
+fuerzas_soda = [0..]
+
+chuckNorris = Persona {
+	nombre = "Chuck",
+	resistencia = 1000,
+	amigos = [ana],
+	bebidas = []
+}
+--- PUNTO 5 A ---
+-- Funcion para que chuckNorris tome todas las sodas existentes --
+-- Al parametro "fuerzas", le paso una lista infinita [0..] 
+tomaTodasLasSodas persona fuerzas = foldl (\pers fuerza -> (tomaSoda fuerza pers)) persona fuerzas
+
+
+--- PUNTO 5 B ---
+-- *TP> dameOtro (tomaTodasSodas chuckNorris [0..])
+
+--- PUNTO 5 C ---
+-- *TP> resistencia (realizarItinerario (tomaTodasSodas chuckNorris [0..]) itinerarioBasico)
+
+--- PUNTO 6 ---
+tomaJarraPopular persona = persona
