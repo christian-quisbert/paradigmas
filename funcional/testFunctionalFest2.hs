@@ -33,7 +33,6 @@ jarraLoca = tomaJarraLoca
 soda = tomaSoda
 
 rescatarse = seRescata
-tomarBebida = tomaTrago 
 
 
 losAmigotes = amigos
@@ -52,7 +51,7 @@ seAmigaCon = seHaceAmigoteDe
 -- Entrega 2
 
 -- 1c
-tomarse = tomarTragos
+tomarse = tomaTrago
 -- 1d
 pidoOtro = dameOtro
 -- 3b
@@ -149,13 +148,13 @@ runTests = hspec $ do
 
       -- c
       it "Rodri toma una soda de nivel 1 y una soda de nivel 2 y queda con nombre errperpRodri" $ do
-         (nombre . tomarse (soda 2) . tomarBebida (soda 1)) rodri `shouldBe` "errperp" ++ nombreRodri
+         (nombre . tomarse (soda 2) . tomarse (soda 1)) rodri `shouldBe` "errperp" ++ nombreRodri
 
       it "Marcos toma un klusener de huevo, un tintico y una jarraLoca y queda con 30 de resistencia" $ do
-         (resistencia . tomarse jarraLoca . tomarBebida tintico . tomarBebida (klusener "huevo")) marcos `shouldBe` 30
+         (resistencia . tomarse jarraLoca . tomarse tintico . tomarse (klusener "huevo")) marcos `shouldBe` 30
 
       it "Marcos toma un klusener de huevo, un tintico y una jarraLoca y queda con 4 bebidas en el historial" $ do
-         (resistencia . tomarse jarraLoca . tomarBebida tintico . tomarBebida (klusener "huevo")) marcos `shouldBe` 30
+         (resistencia . tomarse jarraLoca . tomarse tintico . tomarse (klusener "huevo")) marcos `shouldBe` 30
 
       -- d
       it "Ana pide 'dame otro' y debe dar error" $ do
@@ -223,7 +222,7 @@ runTests = hspec $ do
 
       it "Rodri hace el itinerario más intenso entre una salida de amigos, la mezcla explosiva y el itinerario básico y queda con un amigo Roberto Carlos" $ do
          (nombre . head . amigos . cumplirItinerario rodri . itinerarioMasIntenso) [salidaAmigos, laMezclaExplosiva, itinerarioEstandar] `shouldBe` nombreRobertoCarlos
-
+{-
    --Test punto 6 Jarra Popular
    describe "II- Tests punto 6 Jarra Popular" $ do
       it "Roberto Carlos se hace amigo de Ana, toma una jarra popular de espirituosidad 0, sigue quedando con una sola amiga (Ana)" $ do
@@ -234,3 +233,6 @@ runTests = hspec $ do
 
       it "Cristian se hace amigo de Ana. Roberto Carlos se hace amigo de Cristian, toma una jarra popular de espirituosidad 4, queda con 4 amigos (Cristian, Ana, Marcos y Rodri)" $ do
          (sort . map nombre . amigos . tomarse (jarraPopular 4) . seHaceAmigoteDe robertoCarlos . seAmigaCon ana) cristian `shouldBe` [nombreAna, nombreCristian, nombreMarcos, nombreRodri]
+
+-}
+

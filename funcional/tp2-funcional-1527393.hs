@@ -110,25 +110,23 @@ seRescata horas persona
 -- C/u de las funciones donde toma una bebida, se modifico para agregar la bebida.
 
 --- Punto 1-c ---
-tomarTragos :: Cliente -> [Bebida] -> Cliente
-tomarTragos persona tragos = foldl tomaTrago persona tragos
+tomarTragos :: [Bebida] -> Cliente -> Cliente
+tomarTragos tragos persona = foldl (\pers trago -> trago pers) persona tragos
 
-tomaTrago persona trago = trago persona
+tomaTrago trago persona = trago persona
 
 --- Punto 1-d ---
 dameOtro persona = (last (bebidas persona)) persona
 
 --- PUNTO 2-a ---
-cualesPuedeTomar persona = map (resistenciaMayorACero persona) -- Aplicacion Parcial (una lista "tragos") --
+cualesPuedeTomar persona = map (resistenciaMayorACero persona)  -- Aplicacion Parcial (una lista "tragos") --
 
-resistenciaMayorACero persona trago = (resistencia.tomaTrago persona) trago > 0
+resistenciaMayorACero persona trago = ((>0).resistencia.tomaTrago trago) persona
 
 --- PUNTO 2-b ---
 cuantasPuedeTomar persona = (length.filter (== True).cualesPuedeTomar persona) -- Aplicacion Parcial (una lista "tragos") --
 
 --- PUNTO 3 ---
---type RobertoCarlos = Cliente -> Cliente
-
 data Itinerario = Itinerario {
 	nombreItinerario :: String,
 	duracion :: Float,
@@ -148,7 +146,7 @@ itinerarioBasico = Itinerario {
 	acciones = [tomaJarraLoca, tomaKlusener "chocolate", seRescata 2, tomaKlusener "huevo"]
 }
 salidaDeAmigos = Itinerario {
-	nombreItinerario = "salidaDeAmigos",
+	nombreItinerario = "Salida de amigos",
 	duracion = 1,
 	acciones = [tomaSoda 1, tomaTintico, reconocerAmigo robertoCarlos, tomaJarraLoca]
 }
@@ -162,7 +160,7 @@ robertoCarlos = Persona {
 }
 
 --- PUNTO 3-b ---
-realizarItinerario persona itinerario = tomarTragos persona (acciones itinerario) 
+realizarItinerario persona itinerario = tomarTragos (acciones itinerario) persona  -- Aplicacion Parcial --
 
 -- rodri y marcos aplican la funcion --
 -- *TP> realizarItinerario rodri salidaDeAmigos
@@ -199,4 +197,6 @@ tomaTodasLasSodas persona fuerzas = foldl (\pers fuerza -> (tomaSoda fuerza pers
 -- *TP> resistencia (realizarItinerario (tomaTodasSodas chuckNorris [0..]) itinerarioBasico)
 
 --- PUNTO 6 ---
-tomaJarraPopular persona = persona
+tomaJarraPopular nivel persona = foldl (\persona amigo ->reconocerAmigo amigo persona) persona (amigos persona)
+
+
