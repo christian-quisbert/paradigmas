@@ -53,7 +53,7 @@ tieneMasDeUnAmigo = ((>1).length.amigos)	-- Aplicacion parcial --
 --- PUNTO 4 ---
 reconocerAmigo :: Cliente -> Cliente -> Cliente 
 reconocerAmigo friendToAdd uno
-	| (esMismaPersona uno friendToAdd || amigoExistente uno friendToAdd) = error ("Error, es la misma persona o un amigo existente")
+	| (esMismaPersona uno friendToAdd || amigoExistente uno friendToAdd) = uno --error ("Error, es la misma persona o un amigo existente")
 	| not (amigoExistente uno friendToAdd) = agregarAmigo friendToAdd uno
 
 esMismaPersona pers1 pers2 = nombre pers1 == nombre pers2
