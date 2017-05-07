@@ -191,12 +191,17 @@ tomaTodasLasSodas persona fuerzas = foldl (\pers fuerza -> (tomaSoda fuerza pers
 
 
 --- PUNTO 5 B ---
--- *TP> dameOtro (tomaTodasSodas chuckNorris [0..])
+-- *TP> dameOtro (tomaTodasLasSodas chuckNorris [0..])
 
 --- PUNTO 5 C ---
 -- *TP> resistencia (realizarItinerario (tomaTodasSodas chuckNorris [0..]) itinerarioBasico)
 
 --- PUNTO 6 ---
-tomaJarraPopular nivel persona = foldl (\persona amigo ->reconocerAmigo amigo persona) persona (amigos persona)
+--jarraPopular nivel persona
+--	| nivel > 0 = jarraPopular (nivel-1) persona
+--	| nivel == 0 = persona
+--	| otherwise = error ("Error, la espiritualidad debe ser mayor a 0")
 
+-- Funcion: Agrega una lista de amigos --
+agregarAmigotes persona listaAmigos = foldl (\persona amigo -> reconocerAmigo amigo persona) persona listaAmigos
 
