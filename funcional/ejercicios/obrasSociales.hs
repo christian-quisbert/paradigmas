@@ -49,9 +49,9 @@ diagnosticarPreexistencia socio enfermedad = socio {preexistentes = enfermedad :
 
 --- PUNTO 3 ---
 estaEnRiesgo socio = esObeso socio && edadAvanzada socio && muchasEnfermedades socio
-esObeso socio = peso socio > 150
-edadAvanzada socio = edad socio > 75
-muchasEnfermedades socio = length (preexistentes socio) > 8
+esObeso = (>150) . peso
+edadAvanzada = (>75) . edad
+muchasEnfermedades = (>8) . length . preexistentes
 
 -- PARTE B --
 
@@ -70,7 +70,7 @@ solicitud897 = Solicitud {
 --- PUNTO 5 ---
 type Prestacion = Solicitud -> Float
 
---prestacionTotal enfermedad solicitud = 
+prestacionTotal enfermedad solicitud =  
 
 
 
