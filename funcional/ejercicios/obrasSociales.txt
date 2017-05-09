@@ -1,0 +1,60 @@
+Obras Sociales, Recargado. (OSPF)
+
+Obras Sociales de Programadores Funcionales.
+
+!Bienvenido al hermoso mundo de las obras sociales¡ Bueno, no es tan hermoso, pero son bienvenidos igual para programar
+el sistema de OSPF (Obra social de programadores funcionales). Veamos alguna nociones:
+	*De un Socio se sabe su sexo, peso, edad y sus preexistencias (enfermedades diagnosticadas antes de hacerse 
+	 socio, como "estornudoGalopante" y "chiterosisMultiple")
+
+	*De un Tratamiento se sabe su costo base (es decir, lo que te saldría si tuvieras que atenderte sin obra social),
+	 el número de sesiones y la enfermedad que trata.
+
+Parte A:
+	1. Modelá los socios y tratamiento con tuplas, registros (data), listas, o lo que consideres mas apropiado,
+	 y da ejemplos para las siguientes situaciones:
+		a. jose: es hombre, 22 años, 78.9 KG y tiene "zamorreaDistopica".
+		b. analia: es mujer, 34 años, 70 KG y está sana.
+		c. x1: es un tratamiento para la "zamorreaDistopica" sale $5000 y requiere 30 sesiones.
+		d. xfg23: otro tratamiento para la "zamorreaDistopica", pero sale $10000 y consta de 2 sesiones.
+
+	2. Escribí la función diagnosticarPreexistencia, que agrega una preexistencia.
+	3. Escribí la función estaEnRiesgo, que para un socio es verdadero en los siguientes casos:
+		a. Obesidad (más de 150 KG).
+		b. Edad Avanzada (más de 75 Años).
+		c. o tiene más de ocho preexistencias.
+
+Parte B:
+OSPF recibe SOLICITUDES: un pedido de un socio para recibir un tratamiento. Y como es su obligación cubrir un cierto 
+monto de los tratamiento solicitados, creó el concepto de PRESTACION: una regla que nos dice 
+CUANTO DEBE CUBRIR dada una SOLICITUD.
+
+	4. Modelaá las solicitudes y da el siguiente ejemplo:
+		a. solicitud897: jose solicitó el tratamiento X1.
+	5. Modelá las siguientes prestaciones y declará el tipo prestación
+		a. prestacionTotal: cubreel 100% del costo de cualquier solicitud de tratamiento si es para UNA ENFERMEDAD DADA, 
+		 o nada en caso contrario.
+		b. prestacionSinPreexistencias: cubre el 50% del costo de la solicitud, si el tratamiento es para una enfermedad
+		 de la que el socio NO tenga preexistencias, o nada en caso contrario.
+		c. prestacionHastaMaximo: cubre hasta $N pesos del costo para cualquier solicitud.
+		d. nada: no cubre nada de ninguna solicitud.
+	6. Finalmente, OSPF maneja el concepto de PLAN: es una prestación especial que suma a otras prestaciones, en la que OSPF
+	 cubre tanto como el máximo entre lo que todas cubran. Sabiendo eso:
+		a. Escribí la función sumarPrestaciones, que tome dos prestaciones y devuelva una nueva prestación que 
+		 (cuando reciba una solicitud) cubra tanto como la mayor de ellas.
+		b. Escribí la función PLAN que tome una lista de prestaciones y las sume a todas.
+
+Parte C:
+
+	7. BONUS: probablemente hyas repetido lógica en el punto 6.a, 6.b y 6.c, asi que te vamos a dar una (pequeña) ayudita 
+	 para eliminarla: una prestacion siempre sigue esta lógica:
+		"si se cumple una cierta condición sobre la solicitud, aplicá un descuento al precio. si no, devoldé cero"
+	Sabiendo eso, reescribí dichas funciones utilizando esta nueva idea.
+
+Parte D:
+	Resolver el tipo de esta función.
+	
+	f a y z h	| (y . filter a) h = length h
+			| otherwise = z a
+
+ 
