@@ -68,9 +68,32 @@ solicitud897 = Solicitud {
 }
 
 --- PUNTO 5 ---
+--- Punto 5a ---
 type Prestacion = Solicitud -> Float
 
-prestacionTotal enfermedad solicitud =  
+prestacionTotal enfermedad solicitud
+	| enfermedad == enfermedadSolicitud solicitud = costoTotal solicitud
+	| otherwise = 0
 
+enfermedadSolicitud :: Solicitud -> Enfermedad
+enfermedadSolicitud = enfermedad . tratamiento
+
+costoTotal :: Solicitud -> Float
+costoTotal = costoBase . tratamiento
+
+--- Punto 5b ---
+prestacionSinPreexistencias solicitud
+	| cantPreexistencias solicitud == 0 = costoTotal solicitud / 2
+	| otherwise = 0
+
+cantPreexistencias = length . preexistentes . socio
+
+--- Punto 5c ---
+prestacionHastaMaximo pesos solicitud = min pesos (costoTotal solicitud)
+
+--- Punto 5d ---
+nada _ = 0
+
+--- PUNTO 6 ---
 
 
