@@ -95,5 +95,19 @@ prestacionHastaMaximo pesos solicitud = min pesos (costoTotal solicitud)
 nada _ = 0
 
 --- PUNTO 6 ---
+--- Punto 6a ---
+sumaPrestaciones :: Prestacion -> Prestacion -> Prestacion
+sumaPrestaciones p1 p2 solicitud = max (p1 solicitud) (p2 solicitud)
 
+--- Punto 6b ---
+plan prestaciones = foldr sumaPrestaciones nada prestaciones
 
+-- PARTE C --
+
+-- PARTE D --
+-- tipo de la funcion:
+f a y z h
+	| (y . filter a) h = length h
+	| otherwise = z a
+
+-- f :: (a -> Bool) -> ([a] -> Bool) -> ((a -> Bool) -> Int) -> [a] -> Int
