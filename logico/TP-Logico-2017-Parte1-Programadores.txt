@@ -1,0 +1,44 @@
+﻿Trabajo práctico Paradigma Lógico - Programadores - Entrega 1
+
+Fecha límite de entrega: domingo 04/06/2017 18:00, se debe entregar por mail a los tutores
+* un archivo .pl con la base de conocimientos
+* otro archivo de texto donde se muestren las consultas hechas en la consola
+Con la confirmación del tutor se considera cumplida la entrega.
+
+Indice
+
+1 Relevamiento inicial
+2 Requerimientos
+3 Conceptos a evaluar
+________________
+
+1 Relevamiento inicial
+Queremos modelar el negocio de una consultora de sistemas, que en el relevamiento nos contó que:
+* Fernando sabe programar COBOL[1], Visual Basic, y Java.
+* Julieta y Marcos programan en Java.
+* Aún no sabemos si Julieta programó en Go.
+* Santiago programa en ECMAScript y en Java.
+* Nadie programó en Assembler.
+* Fernando es analista funcional.
+* Andrés es project leader pero no programa.
+* Alguien es programador, si es que programa en algún lenguaje (no importa si además cumple otro rol).
+
+
+2 Requerimientos
+1. Codifique la base de conocimientos en base a lo anteriormente expuesto. En caso de no agregar nada justifique su decisión.
+2. Se pide que escriba las consultas necesarias para determinar
+   1. ¿Qué lenguajes sabe programar Fernando?
+   2. ¿Quiénes programan en Java?
+   3. ¿Existe algún programador de Assembler?
+   4. Fernando, ¿es programador?
+   5. ¿Qué roles cumple Fernando?
+   6. ¿Quiénes son programadores?
+   7. ¿Existe algún project leader?
+
+
+3 Conceptos a evaluar
+* Modelado de información
+* Principio de universo cerrado
+_____________
+
+[1] Tip: Ojo con las mayúsculas al pasar la información a PROLOG
