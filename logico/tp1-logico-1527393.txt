@@ -1,0 +1,47 @@
+Consultas de prolog:
+
+1 - Que lenguaje sabe programar Fernando
+´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´
+?- programa(fernando,Lenguaje).
+Lenguaje = cobol ;
+Lenguaje = visualBasic ;
+Lenguaje = java.
+
+2 - Quienes programan en JAVA
+´´´´´´´´´´´´´´´´´´´´´´´´´´´´´
+?- programa(Quien,java).
+Quien = fernando ;
+Quien = santiago.
+
+3 - ¿Existe algún programador de Assembler?
+´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´
+?- programa(Alguien,assembler).
+false.
+
+4 - Fernando, ¿es programador?
+´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´
+?- esProgramador(fernando).
+true ;
+true ;
+true.
+
+5 - ¿Qué roles cumple Fernando?
+´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´
+?- rol(fernando,Rol).
+Rol = analistaFuncional.
+
+6 - ¿Quiénes son programadores?
+´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´
+?- esProgramador(Quien).
+Quien = fernando ;
+Quien = fernando ;
+Quien = fernando ;
+Quien = santiago ;
+Quien = santiago.
+
+7 - ¿Existe algún project leader?
+´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´
+?- rol(Alguien,projectLeader).
+Alguien = andres.
+
+
