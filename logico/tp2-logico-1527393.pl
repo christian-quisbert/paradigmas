@@ -13,25 +13,55 @@ rol(Persona,programador):-
     esProgramador(Persona).
     
 esProgramador(Alguien):-
-			programa(Alguien,_).
-			
-%--- Tp2 - lógico ---%
-%-- Punto 1.2 Proyectos --%
-persona(Persona):-
-    programa(Persona,_),
+	programa(Alguien,_).
+
+%----------------------------------%
+%---------- Tp2 - lógico ----------%
+%----------------------------------%
+
+%--- Punto 1.2.1 Proyectos ---%
 persona(Persona):-
     rol(Persona,_).
 
-% proyecto(Nombre,[Lenguaje],[Persona]) %
-proyecto("Sumatra",[java,pnet],[julieta,marcos,andres]).
-proyecto("Prometeus",[cobol],[fernando,santiago]).
+% proyecto(Nombre,[Lenguaje]) %
+proyecto(sumatra,[java,pnet]).
+proyecto(prometeus,[cobol]).
+
+% trabaja([Persona],Proyecto) %
+trabaja([julieta,marcos,andres],sumatra).
+trabaja([fernando,santiago],prometeus).
 
 proyecto(Proyecto):-
-    proyecto(Proyecto,_,_).
-    
-%-- Punto 1.2.2 Proyectos --%
-trabajaEnProyecto(Persona,Proyecto):-
-    persona(Persona),
-    proyecto(Proyecto),
-    forall(proyecto(Proyecto,_,Personas), member(Persona,Personas),
-    /*forall(proyecto(Proyecto,Lenguajes,_), programa(Persona,Lenguaje), member(Lenguaje,Lenguajes).*/
+    proyecto(Proyecto,_).
+
+%--- Punto 1.2.2 Proyectos ---%
+%-- a --%
+bienAsignada(Persona,Proyecto):-
+	persona(Persona),
+	proyecto(Proyecto),
+	forall(trabaja(Personas,Proyecto), (member(Persona,Personas),programaEnProyecto(Proyecto,Persona))).
+%-- b --%
+bienAsignada(Persona,Proyecto):-
+	persona(Persona),
+	proyecto(Proyecto),
+	forall(trabaja(Personas,Proyecto),(member(Persona,Personas), rol(Persona,analistaFuncional))).
+%-- c --%
+bienAsignada(Persona,Proyecto):-
+	persona(Persona),
+	proyecto(Proyecto),
+	forall(trabaja(Personas,Proyecto),(member(Persona,Personas), rol(Persona,projectLeader))).
+
+programaEnProyecto(Proyecto,Persona):-
+	persona(Persona),
+	proyecto(Proyecto),
+	programa(Persona,Lenguaje),
+	forall(proyecto(Proyecto, Lenguajes), member(Lenguaje,Lenguajes)).
+
+%--- Punto 1.3 Validación de Proyectos ---%
+bienDefinido(Proyecto):-
+	proyecto(Proyecto),
+	trabaja(Personas,Proyecto),
+	forall(member(Persona,Personas), bienAsignada(Persona,Proyecto)).
+	/*Y si ademas hay 1 solo projectLeader (Usar not)*/
+	
+	
